@@ -17,7 +17,7 @@ module.exports = function (source) {
     const compilers = {
         transcrypt: {
             switches: '-b -n -m',
-            folder: `.${slash}__javascript__`,
+            folder: `.${slash}__target__`,
             install: 'pip install transcrypt',
             python_version: '3.x',
             sourcemaps: true,
@@ -121,10 +121,10 @@ module.exports = function (source) {
                 }
 
                 if (compiler.sourcemaps) {
-                    const sourceMapFile = `${srcDir}${slash}${compiler.folder}${slash}extra${slash}sourcemap${slash}${basename}.js`;
-                    sourceMap = fs.readFileSync(sourceMapFile + ".map", "utf8")
+                    const sourceMapFile = `${srcDir}${slash}${compiler.folder}${slash}${basename}.map`;
+                    sourceMap = fs.readFileSync(sourceMapFile, "utf8")
                     if (!compiler.keep_compiled) {
-                        fs.unlinkSync(sourceMapFile + ".map");
+                        fs.unlinkSync(sourceMapFile);
                     }
                     callback(null, js, sourceMap);
                 }
